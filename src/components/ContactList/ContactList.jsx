@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import {
   deleteItem,
   getContact,
   getFilterWord,
+  fetchContacts,
 } from '../../redux/contactsSlice';
 import {
   ContactsList,
@@ -16,6 +18,10 @@ export const ContactList = () => {
 
   const items = useSelector(getContact);
   const filter = useSelector(getFilterWord);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const normalizedValue = filter.toLowerCase();
   const filteredContacts = items.filter(option =>
