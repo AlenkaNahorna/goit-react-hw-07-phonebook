@@ -9,12 +9,12 @@ export const fetchContacts = createAsyncThunk(
       console.log(contactsApi);
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(error.massage);
+      return rejectWithValue(error);
     }
   }
 );
 
-const contactsSlice = createSlice({
+export const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     items: [],
@@ -23,22 +23,42 @@ const contactsSlice = createSlice({
     filter: '',
   },
   reducers: {
-    addItem(state, action) {
-      state.items = [action.payload, ...state.items];
+    addItem: (state, action) => {
+      return { ...state, items: [...state.items, action.payload] };
     },
-    deleteItem(state, action) {
-      state.items = state.items.filter(
-        contact => contact.id !== action.payload
-      );
+    deleteItem: (state, action) => {
+      return {
+        ...state,
+        items: state.items.filter(contact => contact.id !== action.payload),
+      };
     },
-    filterItems(state, action) {
-      state.filter = action.payload;
+    filterItems: (state, action) => {
+      return { ...state, filter: action.payload };
     },
   },
-  exstraReducers: {
-    [fetchContacts.fulfilled]: (state, { payload }) => (state.items = payload),
-    [fetchContacts.pending]: state => (state.isLoading = true),
-    [fetchContacts.rejected]: (state, action) => (state.error = action.payload),
+  extraReducers: {
+    [fetchContacts.pending]: (state, _) => {
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    },
+    [fetchContacts.fulfilled]: (state, action) => {
+      return {
+        ...state,
+        items: [...action.payload],
+        isLoading: false,
+      };
+    },
+
+    [fetchContacts.rejected]: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    },
   },
 });
 
