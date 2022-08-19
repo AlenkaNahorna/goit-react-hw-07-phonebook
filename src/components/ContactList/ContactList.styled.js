@@ -6,7 +6,7 @@ export const ContactsList = styled.ul`
 `;
 
 export const ContactsListItem = styled.li`
-  width: 300px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
   align-items: center;

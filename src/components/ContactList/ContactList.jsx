@@ -5,7 +5,7 @@ import {
   getContact,
   getFilterWord,
   fetchContacts,
-} from '../../redux/contactsSlice';
+} from 'redux/contactsSlice';
 import {
   ContactsList,
   ContactsListItem,
@@ -17,7 +17,6 @@ export const ContactList = () => {
   const dispatch = useDispatch();
 
   const items = useSelector(getContact);
-  console.log(items);
   const filter = useSelector(getFilterWord);
 
   useEffect(() => {

@@ -5,11 +5,12 @@ export const FilterInput = styled.input`
   padding: ${p => p.theme.space.m};
   border-radius: ${p => p.theme.radii.small};
   height: 30px;
-  width: 300px;
+  width: 400px;
   color: ${p => p.theme.colors.primaryColor};
   font-family: inherit;
   font-weight: ${p => p.theme.fontWeights.normal};
   font-size: ${p => p.theme.fontSizes.s};
+  border: none;
   &:hover,
   &:focus {
     outline: none;

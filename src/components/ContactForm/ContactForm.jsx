@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { Formik, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addItem, getContact } from '../../redux/contactsSlice';
+import { addItem, getContact } from 'redux/contactsSlice';
 import { ErrorText, FormEl, Input } from './ContactForm.styled';
 import { Label } from 'components/ui/Label/Label';
 import { PrimaryButton } from 'components/ui/buttons/PrimaryButton';
