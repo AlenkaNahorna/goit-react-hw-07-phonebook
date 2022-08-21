@@ -10,11 +10,11 @@ export const getContacts = async () => {
   return data;
 };
 
-export const addContacts = async contact => {
+export const addContact = async contact => {
   const { data } = await customAxios.post('', contact);
   return data;
 };
-export const deleteContacts = async id => {
+export const deleteContact = async id => {
   const { data } = await customAxios.delete(`/${id}`);
   return data;
 };

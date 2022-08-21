@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import {
   deleteItem,
   getContact,
@@ -11,7 +12,10 @@ import {
   ContactsListItem,
   ContactsListText,
 } from './ContactList.styled';
-import { SecondaryButton } from 'components/ui/buttons/SecondaryButton';
+import {
+  SecondaryButton,
+  SecondaryButtonIcon,
+} from 'components/ui/buttons/SecondaryButton';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -29,6 +33,7 @@ export const ContactList = () => {
   );
 
   const deleteContact = contactId => {
+    toast.success('Contact deleted!', {});
     dispatch(deleteItem(contactId));
   };
 
@@ -43,6 +48,7 @@ export const ContactList = () => {
               deleteContact(id);
             }}
           >
+            <SecondaryButtonIcon />
             Delate
           </SecondaryButton>
         </ContactsListItem>

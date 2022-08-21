@@ -20,6 +20,7 @@ export const Input = styled(Field)`
   font-weight: ${p => p.theme.fontWeights.normal};
   font-size: ${p => p.theme.fontSizes.s};
   border: none;
+  box-shadow: 5px 5px 10px 0px rgba(149, 167, 173, 1);
   &:hover,
   &:focus {
     outline: none;
