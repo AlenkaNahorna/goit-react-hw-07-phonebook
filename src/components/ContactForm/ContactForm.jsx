@@ -49,7 +49,6 @@ export const ContactForm = () => {
       toast.info(`${newContact.name} is already in contact`);
       return;
     } else {
-      toast.success('Contact added!', {});
       dispatch(addItem(newContact));
     }
     resetForm();

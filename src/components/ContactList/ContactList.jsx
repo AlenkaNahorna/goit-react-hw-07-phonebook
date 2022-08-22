@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
 import {
   deleteItem,
   getContact,
@@ -23,19 +22,18 @@ export const ContactList = () => {
   const items = useSelector(getContact);
   const filter = useSelector(getFilterWord);
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   const normalizedValue = filter.toLowerCase();
   const filteredContacts = items.filter(option =>
     option.name.toLowerCase().includes(normalizedValue)
   );
 
   const deleteContact = contactId => {
-    toast.success('Contact deleted!', {});
     dispatch(deleteItem(contactId));
   };
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <ContactsList>

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { addContact, deleteContact, getContacts } from 'api/fetchContacts';
 
 export const fetchContacts = createAsyncThunk(
@@ -6,10 +7,9 @@ export const fetchContacts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const contactsApi = await getContacts();
-      console.log(contactsApi);
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -18,10 +18,12 @@ export const addItem = createAsyncThunk(
   'contacts/addItem',
   async (contact, { rejectWithValue }) => {
     try {
-      const data = addContact(contact);
-      return data;
+      await addContact(contact);
+      const contactsApi = await getContacts();
+      toast.success('Contact added!', {});
+      return contactsApi;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -30,10 +32,12 @@ export const deleteItem = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
-      const data = await deleteContact(id);
-      return data;
+      await deleteContact(id);
+      const contactsApi = await getContacts();
+      toast.success('Contact deleted!', {});
+      return contactsApi;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -56,21 +60,18 @@ export const contactsSlice = createSlice({
       return {
         ...state,
         isLoading: true,
-        error: null,
       };
     },
     [fetchContacts.fulfilled]: (state, action) => {
       return {
         ...state,
         items: [...action.payload],
-        isLoading: false,
       };
     },
 
     [fetchContacts.rejected]: (state, action) => {
       return {
         ...state,
-        isLoading: false,
         error: action.payload,
       };
     },
@@ -79,21 +80,18 @@ export const contactsSlice = createSlice({
       return {
         ...state,
         isLoading: true,
-        error: null,
       };
     },
     [addItem.fulfilled]: (state, action) => {
       return {
         ...state,
-        items: [...state.items, action.payload],
-        isLoading: false,
+        items: [...action.payload],
       };
     },
 
     [addItem.rejected]: (state, action) => {
       return {
         ...state,
-        isLoading: false,
         error: action.payload,
       };
     },
@@ -102,21 +100,18 @@ export const contactsSlice = createSlice({
       return {
         ...state,
         isLoading: true,
-        error: null,
       };
     },
     [deleteItem.fulfilled]: (state, action) => {
       return {
         ...state,
-        items: state.items.filter(contact => contact.id !== action.payload),
-        isLoading: false,
+        items: action.payload,
       };
     },
 
     [deleteItem.rejected]: (state, action) => {
       return {
         ...state,
-        isLoading: false,
         error: action.payload,
       };
     },
