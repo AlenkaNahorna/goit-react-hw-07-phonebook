@@ -9,7 +9,7 @@ export const fetchContacts = createAsyncThunk(
       const contactsApi = await getContacts();
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(error.message);
+      toast.error('Oops, something went wrong!', {});
     }
   }
 );
@@ -23,7 +23,7 @@ export const addItem = createAsyncThunk(
       toast.success('Contact added!', {});
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(error.message);
+      toast.error('Oops, something went wrong!', {});
     }
   }
 );
@@ -37,7 +37,7 @@ export const deleteItem = createAsyncThunk(
       toast.success('Contact deleted!', {});
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(error.message);
+      toast.error('Contact not found!', {});
     }
   }
 );
@@ -69,13 +69,6 @@ export const contactsSlice = createSlice({
       };
     },
 
-    [fetchContacts.rejected]: (state, action) => {
-      return {
-        ...state,
-        error: action.payload,
-      };
-    },
-
     [addItem.pending]: (state, _) => {
       return {
         ...state,
@@ -89,13 +82,6 @@ export const contactsSlice = createSlice({
       };
     },
 
-    [addItem.rejected]: (state, action) => {
-      return {
-        ...state,
-        error: action.payload,
-      };
-    },
-
     [deleteItem.pending]: (state, _) => {
       return {
         ...state,
@@ -106,13 +92,6 @@ export const contactsSlice = createSlice({
       return {
         ...state,
         items: action.payload,
-      };
-    },
-
-    [deleteItem.rejected]: (state, action) => {
-      return {
-        ...state,
-        error: action.payload,
       };
     },
   },
