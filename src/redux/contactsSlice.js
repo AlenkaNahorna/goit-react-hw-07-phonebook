@@ -9,7 +9,7 @@ export const fetchContacts = createAsyncThunk(
       const contactsApi = await getContacts();
       return contactsApi;
     } catch (error) {
-      toast.error('Oops, something went wrong!', {});
+      return rejectWithValue(toast.error('Oops, something went wrong!'));
     }
   }
 );
@@ -20,10 +20,10 @@ export const addItem = createAsyncThunk(
     try {
       await addContact(contact);
       const contactsApi = await getContacts();
-      toast.success('Contact added!', {});
+      toast.success('Contact added!');
       return contactsApi;
     } catch (error) {
-      toast.error('Oops, something went wrong!', {});
+      return rejectWithValue(toast.error('Oops, something went wrong!'));
     }
   }
 );
@@ -34,10 +34,10 @@ export const deleteItem = createAsyncThunk(
     try {
       await deleteContact(id);
       const contactsApi = await getContacts();
-      toast.success('Contact deleted!', {});
+      toast.success('Contact deleted!');
       return contactsApi;
     } catch (error) {
-      toast.error('Contact not found!', {});
+      return rejectWithValue(toast.error('Contact not found!'));
     }
   }
 );
