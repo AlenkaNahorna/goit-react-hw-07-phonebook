@@ -9,7 +9,8 @@ export const fetchContacts = createAsyncThunk(
       const contactsApi = await getContacts();
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(toast.error('Oops, something went wrong!'));
+      toast.error('Oops, something went wrong!!');
+      return rejectWithValue(error);
     }
   }
 );
@@ -23,7 +24,8 @@ export const addItem = createAsyncThunk(
       toast.success('Contact added!');
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(toast.error('Oops, something went wrong!'));
+      toast.error('Oops, something went wrong!!');
+      return rejectWithValue(error);
     }
   }
 );
@@ -37,7 +39,8 @@ export const deleteItem = createAsyncThunk(
       toast.success('Contact deleted!');
       return contactsApi;
     } catch (error) {
-      return rejectWithValue(toast.error('Contact not found!'));
+      toast.error('Contact not found!');
+      return rejectWithValue(error);
     }
   }
 );
